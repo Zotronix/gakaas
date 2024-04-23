@@ -1,0 +1,585 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="https://oyosite.s3.amazonaws.com/userdata/img8/1712089752-5f7e6262792ac2202395dc80.jpeg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blaze Games</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1d1f27;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            height:100vh;
+        }
+        header {
+            background-color: #282c34;
+            padding: 20px 0;
+        }
+        #hh1 {
+            margin: 0;
+            font-size: 36px;
+            color: #fff;
+            text-align: center;
+            transition: font-size 0.3s;
+        }
+        
+        h1 {
+            text-align: center;
+            padding: 3px 0;
+            font-size:40px;
+        }
+
+        .search-bar {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input[type="text"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 300px;
+        }
+
+        .game-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .game {
+            position: relative;
+            margin: 10px;
+        }
+
+        .game img {
+            width: 155px;
+            height: 155px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .game .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 98%;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .game:hover .overlay {
+            opacity: 0.98;
+        }
+
+        .game-title {
+            color: white;
+            font-size: 24px;
+            text-align:center;
+            font-weight: bold;
+        }
+
+        #te {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="frame" hidden>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+<link rel="icon" href="https://oyosite.s3.amazonaws.com/userdata/img9/1712089702-5f7e6262792ac2202395dc80.jpeg">
+    <script src="https://kit.fontawesome.com/1237c86ba0.js" crossorigin="anonymous"></script>
+    <style>
+        #menuButton {
+            float:right;
+            width:50px;
+            height:50px;
+            position:fixed;
+            right:0px;
+            border:none;
+            border-radius:12px;
+            background-color:rgba(255,255,255,0.2);
+        }
+        
+        #bttn {
+            text-align:center;
+            border:none;
+            border-radius:10px;
+            width:75px;
+            height:60px;
+            margin:10px;
+            background-color:rgba(200,200,200);
+            cursor:pointer;
+        }
+        
+        #menu {
+            position:absolute;
+            top:40%;
+            left:36%;
+            background-color:rgb(50,50,50);
+            border-radius:20px;
+        }
+        #h1 {
+            text-align:center;
+            font-family:'Nunito';
+            color:white;
+            font-size:43px;
+            height:40px;
+        }
+        
+        iframe {
+            position:absolute;
+            height:100%;
+            width:100%;
+            margin:0;
+            border:none;
+        }
+    </style>
+<body>
+    <iframe id="iframe">
+    </iframe>
+    <button id="menuButton" onclick="openMenu();">
+    <i class="fa-solid fa-bars fa-3x"></i></button>
+    <div id="menu" draggable="true" hidden>
+        <h1 id="h1">Menu</h1>
+        <button id="bttn" onclick="home();">
+             <i class="fa-solid fa-house fa-3x"></i>
+        </button>
+        <button id="bttn" onclick="document.getElementById('iframe').src = document.getElementById('iframe').src;">
+            <i class="fa-solid fa-rotate-right fa-3x"></i>
+        </button>
+        <button id="bttn" onclick="ab();">
+            <i class="fa-regular fa-window-restore fa-3x"></i>
+        </button>
+        <button id="bttn" onclick="closeMenu();">
+            <i class="fa-solid fa-x fa-3x"></i>
+        </button>
+    </div>
+</body>
+<title>Online Games</title>
+<script>
+    var mousePosition;
+var offset = [0,0];
+var div;
+var isDown = false;
+
+div = document.getElementById("menu");
+
+div.addEventListener('mousedown', function(e) {
+    div.style.cursor = "move";
+    isDown = true;
+    offset = [
+        div.offsetLeft - e.clientX,
+        div.offsetTop - e.clientY
+    ];
+}, true);
+
+document.addEventListener('mouseup', function() {
+    isDown = false;
+    div.style.cursor = "";
+}, true);
+
+document.addEventListener('mousemove', function(event) {
+    event.preventDefault();
+    if (isDown) {
+        mousePosition = {
+    
+            x : event.clientX,
+            y : event.clientY
+    
+        };
+        div.style.left = (mousePosition.x + offset[0]) + 'px';
+        div.style.top  = (mousePosition.y + offset[1]) + 'px';
+    }
+}, true);
+
+// Line BREAK!
+    
+function openMenu() {
+    document.getElementById("menu").hidden = false;
+}
+
+function closeMenu() {
+    document.getElementById("menu").hidden = true;
+}
+
+function ab() {
+    var win = window.open();
+    win.document.body.style.margin = "0";
+    win.document.body.style.height = "100vh";
+    var iFrame = win.document.createElement("iframe");
+    iFrame.style.height = "100%";
+    iFrame.style.width = "100%";
+    iFrame.style.margin = "0";
+    iFrame.style.border = "none";
+    iFrame.src = document.getElementById("iframe").src;
+    win.document.body.appendChild(iFrame);
+}
+</script>
+    </div>
+    <div id="gc">
+    <h1>Blaze</h1>
+
+<div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search games..." oninput="filterGames()">
+</div>
+
+<div class="game-container">
+    <div class="game" onclick="openMath('https://google-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/sk1bx/version@77d7c057275710c07925ba951e9e56902d101c84/3sp.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Slope</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://66119cb41328d7b557e39273.oyopages.com/view.html');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Tunnel Rush</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://274079163-174037128449362058.preview.editmysite.com/uploads/b/139890129-899796311729593176/files/rtbl.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Retro Bowl</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://book-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/mind4ur/debugactions@57aba9c568b75b8aaddbcad0a05f8c26f57b344b/package/1v1old.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">1v1.lol</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/f107b843-3661-4036-9397-2b0c6414a369%2Fapple-shooter.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Apple Shooter</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/gahaden/ags@a17bbae7f756eae92fbe0d28f2812f7f42687c1b/au.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Among Us</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/sk1bx/awesome-aws@37c682c65a5a4c1ddc5b5ff2b840924526f209b4/scripts/blf.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Bitlife</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://661465431328d7b557e3931b.oyopages.com/view.html');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">The Impossible Quiz</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://66147e751328d7b557e39327.oyopages.com/view.html');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Tanuki Sunset</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://openprocessing-usercontent.s3.amazonaws.com/files/user416285/visual2172142/hbfc61613a1c38191e3434572f7b97a84/fall.html');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Fall.io</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://openprocessing-usercontent.s3.amazonaws.com/files/user426796/visual2200952/ha06ae2211dcef4048a752589e9c1f1d5/btd.html');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Bloons Tower Defense</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://archive777.com/Temple%20Run/Temple%20Run%202%20Game/');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Temple Run</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://openprocessing-usercontent.s3.amazonaws.com/files/user426796/visual2200952/ha06ae2211dcef4048a752589e9c1f1d5/bs.html');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Basketball Stars</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/bobydob/JSEngine@dae52f4583f3cc7612451ea7f02965aeff6077bf/build/v5/v5.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Vex 5</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://script.google.com/macros/s/AKfycbzZN3jRO2eOgcp622_W0GYAeArMio71AmlfRhF8yFucC5hEbRnDFZ3NLiN8peebEdlhWw/exec');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Spacebar Clicker</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://openprocessing-usercontent.s3.amazonaws.com/files/user426796/visual2200952/ha06ae2211dcef4048a752589e9c1f1d5/ltf.html');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Learn To Fly</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://openprocessing-usercontent.s3.amazonaws.com/files/user426796/visual2200952/ha06ae2211dcef4048a752589e9c1f1d5/rs.html');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Rooftop Snipers</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://openprocessing-usercontent.s3.amazonaws.com/files/user426796/visual2200952/ha06ae2211dcef4048a752589e9c1f1d5/pp2.html');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Paper.io 2</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/sk1bx/ReactCasts@a4e6ea73f9e1f60e36fc52c2e092d15dd707d7a0/dropdown/src/justfall.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">JustFall.lol</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://openprocessing-usercontent.s3.amazonaws.com/files/user426796/visual2200952/ha06ae2211dcef4048a752589e9c1f1d5/gm.html');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Gun Mayhem</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://openprocessing-usercontent.s3.amazonaws.com/files/user426796/visual2200952/ha06ae2211dcef4048a752589e9c1f1d5/gm2.html');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Gun Mayhem 2</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://raw.githack.com/BinBashBanana/gfiles/master/gfiles/flash/index.html?swf=portal.swf');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Portal</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/bobydob/JSEngine@e7d53b913d54429e5e118ca9541fb0f8f1f66bdc/dist/cc.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Cookie Clicker</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://6621bb6afc298c73a4d593c5.oyopages.com/view.html');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Car Simulator</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://bafybeiaqi7t7h6frugply2p7l23z2h3h6c5psaeiqh33luypndzipjoxje.ipfs.cf-ipfs.com/');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Subway Surfers</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?container=ig&url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc/bloons-tower-defense-4.xml');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Bloons Tower Defense 4</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://script.google.com/macros/s/AKfycbw5OBrDuUEcIA8zhAOiNU3U800gv3niOBqf44VIjv1ZfndCgav4OxoEPHS1ZLRCwHUnHg/exec');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Taxi Drift</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/gertdoro/Toolkit@93a27eabbbe5eb626af5b9b7dd0926ac16810a41/Code/Java/hole.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Hole.io</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://googleusercontent.b-cdn.net/pixel-shooter/ps.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Pixel Shooter</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://script.google.com/macros/s/AKfycbx63iRe5mtf5PQGIn_eGwKePxCA1iU6w-YApn57Mh4phi2ZB-G-GCJA1YTV9jKrwoqb/exec');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Smash Karts</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/gertdoro/UnityBookPage@7a10156112355ace44265ffde049abec989e6e3c/docs/tabs.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">TABS</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/sk1bx/version@0d8fb9c7430567ed0900902593eee6ba2ba8d297/ts3.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Time Shooter 3 SWAT</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2Ffive-nights-at-freddy-s.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">FNAF</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://66147f9b1328d7b557e3932b.oyopages.com/view.html');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Rocket League</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://661463761328d7b557e39319.oyopages.com/view.html');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Cluster Rush</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://openprocessing-usercontent.s3.amazonaws.com/files/user407850/visual2058665/h44d5be2cc0993ef4712f5c6339e0e48b/%5B!%5D%20Click%20for%20Minecraft%201.8.8%20%5B!%5D.html');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Minecraft 1.8.8</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://openprocessing-usercontent.s3.amazonaws.com/files/user407850/visual2058665/h44d5be2cc0993ef4712f5c6339e0e48b/%5B!%5D%20Click%20for%20Minecraft%201.5.2%20%5B!%5D.html');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Minecraft 1.5.2</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://openprocessing-usercontent.s3.amazonaws.com/files/user426796/visual2245952/h3d64e21dbeaadaccc14b263a316e6036/Resent%20MC%201.8.8.html');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Minecraft Resent</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/9ecda005-11e9-4b52-ab9e-700b4d46d00f/color.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Roblox Color Run</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/9ecda005-11e9-4b52-ab9e-700b4d46d00f%2Fblb.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Roblox Blade Ball</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/9ecda005-11e9-4b52-ab9e-700b4d46d00f%2Fobby.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Roblox Obby</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/9ecda005-11e9-4b52-ab9e-700b4d46d00f%2Fftbr.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Roblox Rob The Bank</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/9ecda005-11e9-4b52-ab9e-700b4d46d00f%2Foland.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Roblox Obby Land</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/9ecda005-11e9-4b52-ab9e-700b4d46d00f%2Frotoh.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Roblox Obby Hell</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/sk1bx/element@9cccb2fafb569c963501a5d818472b561121cea6/totm.xml&container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Tomb of the Mask</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://218463058-163927403382736103.preview.editmysite.com/uploads/b/139890129-297434511671085883/files/mm.xml?container=ig');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Monkey Mart</span>
+        </div> 
+</div>
+<div class="game" onclick="openMath('https://bafybeid7udvvev2qv545vpht42hfvfav5wnjhvnxf66hwzoaw5ycjhr4sm.ipfs.cf-ipfs.com/');">
+        <img>
+        <div class="overlay">
+            <span class="game-title">Blockpost</span>
+        </div> 
+</div>
+    </div>
+    <script>
+        function filterGames() {
+            var input, filter, container, gameCards, i, txtValue;
+            input = document.querySelector('#searchInput');
+            filter = input.value.toUpperCase();
+            container = document.querySelector('.game-container');
+            gameCards = container.getElementsByClassName('game');
+
+            for (i = 0; i < gameCards.length; i++) {
+                txtValue = gameCards[i].querySelector('span').textContent || gameCards[i].querySelector('span').innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    gameCards[i].style.display = "";
+                } else {
+                    gameCards[i].style.display = "none";
+                }
+            }
+        }
+        
+        function imgLoader() {
+            var i, container, gameCards;
+                        container = document.querySelector('.game-container');
+            gameCards = container.getElementsByClassName('game');
+            for (i = 0; i < gameCards.length; i++) {
+                        gameCards[i].querySelector('img').src = "https://cdn.jsdelivr.net/gh/Zotronix/gakaas/" + gameCards[i].querySelector('span').textContent.replace(" ", "%20") + ".png";
+            }
+        }
+        
+        imgLoader();
+    </script>
+    <script>
+        var gc = document.getElementById("gc");
+        var frame = document.getElementById("frame");
+        var iframe = document.getElementById("iframe");
+        
+  function openMath(url) {
+    gc.hidden = true;
+    frame.hidden = false;
+    iframe.src = url;
+}
+
+
+
+
+    
+    function home() {
+        gc.hidden = false;
+        frame.hidden = true;
+document.getElementById("menu").hidden = true;
+    }
+        
+        function abz() {
+         var win = window.open();
+            win.document.write("");
+        }
+        
+        
+    </script>
+</body>
+</html>
